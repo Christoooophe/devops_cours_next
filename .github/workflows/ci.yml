@@ -25,3 +25,7 @@ jobs:
 
       - name: build
         run: npm run build
+
+      - name: test
+        run: npm run dev && npm run test
+
