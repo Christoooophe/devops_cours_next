@@ -19,16 +19,16 @@ jobs:
         run: docker compose up -d
 
       - name: Install dependencies
-        run: docker run --rm my-app-app-1 npm install
+        run: docker run --rm app npm install
 
       - name: Build app
-        run: docker run --rm my-app-app-1 npm run build
+        run: docker run --rm app npm run build
 
       - name: Start  app
-        run: docker run --rm my-app-app-1 npm run start &
+        run: docker run --rm app npm run start &
 
       - name: Run Vitest
-        run: docker docker run --rm my-app-app-1 npm test
+        run: docker docker run --rm app npm test
 
       - name: Stop app
         if: always()
