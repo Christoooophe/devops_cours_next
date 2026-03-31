@@ -25,3 +25,13 @@ jobs:
 
       - name: build
         run: npm run build
+
+      - name: start app
+        run: npm run start &
+
+      - name: wait for app
+        run: npx wait-on http://127.0.0.1:3000
+
+      - name: test
+        run: npx tsx app/__tests__/accueil.test.tsx
+
