@@ -25,9 +25,9 @@ jobs:
         run: docker compose run --rm app npm run build
 
       - name: Start app
-        run: docker compose run app npm run start &
+        run: docker compose run --rm app npm run start &
 
-      - name: Run Vitest
+      - name: Run Jest
         run: docker compose run --rm app npm test
 
       - name: Stop app
