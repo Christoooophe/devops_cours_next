@@ -20,18 +20,8 @@ jobs:
         with:
           node-version: 24
 
-      - name: npm install
-        run: npm install
+      - name: Build app
+        run: docker compose run --rm app sh -c "npm install && npm run build"
 
-      - name: build
-        run: npm run build
-
-      - name: start app
-        run: npm run start &
-
-      - name: wait for app
-        run: npx wait-on http://127.0.0.1:3000
-
-      - name: test
-        run: npx tsx app/__tests__/accueil.test.tsx
-
+      - name: Run Vitest
+        run: docker compose run --rm app sh -c "npm install && npm test"

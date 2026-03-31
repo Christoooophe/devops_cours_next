@@ -1,10 +1,9 @@
-(async () => {
-    const res = await fetch("http://localhost:3000/");
+import { describe, it, expect } from "vitest";
 
-    if (res.status === 200) {
-        console.log("test ok");
-    } else {
-        console.log("test failed");
-        process.exitCode = 1;
-    }
-})();
+describe("homepage", () => {
+    it("should respond with 200 on /", async () => {
+        const res = await fetch("http://app:3000/");
+
+        expect(res.status).toBe(200);
+    });
+});
