@@ -6,4 +6,4 @@ services:
       - ./:/app
     ports:
       - "3000:3000"
-    command: sleep infinty
+    command: sleep infinity
