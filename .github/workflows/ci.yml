@@ -33,3 +33,11 @@ jobs:
       - name: Stop app
         if: always()
         run: docker compose down --remove-orphans
+
+      - name: SonarQube Cloud Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Security audit (npm audit)
+        run: npm audit --audit-level=high
