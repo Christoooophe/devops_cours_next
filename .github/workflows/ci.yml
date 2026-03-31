@@ -15,23 +15,21 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v4
 
-      - name: install node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 24
+      - name: Start container
+        run: docker compose up -d
 
-      - name: npm install
-        run: npm install
+      - name: Install dependencies
+        run: docker compose run --rm app npm install
 
-      - name: build
-        run: npm run build
+      - name: Build app
+        run: docker compose run --rm app npm run build
 
-      - name: start app
-        run: npm run start &
+      - name: Start app
+        run: docker compose run --rm app npm run start &
 
-      - name: wait for app
-        run: npx wait-on http://127.0.0.1:3000
+      - name: Run Jest
+        run: docker compose run --rm app npm test
 
-      - name: test
-        run: npx tsx app/__tests__/accueil.test.tsx
-
+      - name: Stop app
+        if: always()
+        run: docker compose down --remove-orphans
