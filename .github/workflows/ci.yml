@@ -19,7 +19,7 @@ jobs:
         run: docker compose run --rm app sh -c "npm install && npm run build"
 
       - name: Start app
-        run: docker compose run --rm app sh -c "npm run start"
+        run: docker compose run --rm app sh -c "npm run start &"
 
       - name: Run Vitest
         run: docker compose run --rm app sh -c "npm test"
