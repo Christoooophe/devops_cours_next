@@ -15,11 +15,21 @@ jobs:
       - name: checkout code
         uses: actions/checkout@v4
 
-      - name: Build app
-        run: docker compose run --rm app sh -c "npm install && npm run build"
+      - name: Start container
+        run: docker compose up -d
 
-      - name: Start app
-        run: docker compose run --rm app sh -c "npm run start &"
+      - name: Install dependencies
+        run: docker compose exec -T app sh -c "npm install"
+
+      - name: Build app
+        run: docker compose exec -T app sh -c "npm run build"
+
+      - name: Start Next app
+        run: docker compose exec -T app sh -c "npm run start &"
 
       - name: Run Vitest
-        run: docker compose run --rm app sh -c "npm test"
+        run: docker compose exec -T app sh -c "npm test"
+
+      - name: Stop app
+        if: always()
+        run: docker compose down --remove-orphans
