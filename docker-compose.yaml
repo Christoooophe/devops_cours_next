@@ -1,5 +1,6 @@
 services:
   app:
+    container_name: app
     image: node:24
     working_dir: /app
     volumes:
