@@ -34,8 +34,8 @@ jobs:
         if: always()
         run: docker compose down --remove-orphans
 
-      - name: Upload coverage to SonarCloud
-        uses: sonarsource/sonarcloud-github-action@master
+      - name: SonarQube Cloud Scan
+        uses: SonarSource/sonarqube-scan-action@v6
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
