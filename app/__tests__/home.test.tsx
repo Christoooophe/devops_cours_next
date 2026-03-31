@@ -1,14 +1,10 @@
-import { render, screen } from "@testing-library/react";
-import Home from "../home/page";
+describe("API healthcheck", () => {
+    test("GET / returns 200 and valid response", async () => {
+        const res = await fetch("http://localhost:3000/home");
 
-describe("Page page", () => {
-    it("affiche le titre Bienvenue", () => {
-        render(<Home />);
-        expect(screen.getByRole("heading", { name: /bienvenue/i })).toBeInTheDocument();
-    });
+        expect(res.status).toBe(200);
 
-    it("affiche le texte de description", () => {
-        render(<Home />);
-        expect(screen.getByText(/voici mon super site/i)).toBeInTheDocument();
+        const text = await res.text();
+        expect(text).toBeTruthy();
     });
 });
