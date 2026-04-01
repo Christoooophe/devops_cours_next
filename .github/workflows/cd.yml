@@ -25,6 +25,6 @@ jobs:
       - name: Build Docker image and push to GHCR
         run: |
           IMAGE="ghcr.io/$(echo '${{ github.repository }}' | tr '[:upper:]' '[:lower:]')"
-          docker build -f .docker/app/Dockerfile -t "$IMAGE:latest" -t "$IMAGE:${{ github.sha }}" .
+          docker build -f docker/app/Dockerfile -t "$IMAGE:latest" -t "$IMAGE:${{ github.sha }}" .
           docker push "$IMAGE:latest"
           docker push "$IMAGE:${{ github.sha }}"
