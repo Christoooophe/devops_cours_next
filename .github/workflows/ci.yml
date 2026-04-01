@@ -19,17 +19,29 @@ jobs:
         run: docker compose up -d
 
       - name: Install dependencies
-        run: docker compose run --rm app npm install
+        run: docker compose exec  app npm install
 
       - name: Build app
-        run: docker compose run --rm app npm run build
+        run: docker compose exec app npm run build
 
       - name: Start app
-        run: docker compose run --rm app npm run start &
+        run: docker compose exec -d app npm run start &
 
       - name: Run Jest
-        run: docker compose run --rm app npm test
+        run: docker compose exec app npm test
+
+      - name: Security audit (npm audit)
+        run: docker compose exec app npm audit --audit-level=high
+
+      - name: lint
+        run: docker compose exec app npm run lint
 
       - name: Stop app
         if: always()
         run: docker compose down --remove-orphans
+
+      - name: SonarQube Cloud Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+

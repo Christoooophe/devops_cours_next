@@ -1,6 +1,7 @@
 services:
   app:
-    image: node:24
+    container_name: app
+    image: node:25-alpine3.23
     working_dir: /app
     volumes:
       - ./:/app
