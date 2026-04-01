@@ -30,15 +30,15 @@ jobs:
       - name: Run Jest
         run: docker compose exec app npm test
 
-      - name: Stop app
-        if: always()
-        run: docker compose down --remove-orphans
-
       - name: Security audit (npm audit)
         run: docker compose exec app npm audit --audit-level=high
 
       - name: lint
         run: docker compose exec app npm run lint
+
+      - name: Stop app
+        if: always()
+        run: docker compose down --remove-orphans
 
       - name: SonarQube Cloud Scan
         uses: SonarSource/sonarqube-scan-action@v6
